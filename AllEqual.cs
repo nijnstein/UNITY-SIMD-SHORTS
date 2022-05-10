@@ -5,11 +5,10 @@ using static Unity.Burst.Intrinsics.X86.Avx2;
 using static Unity.Burst.Intrinsics.X86.Avx;
 
 [BurstCompile]
-public struct simd
+unsafe public partial struct simd
 {
-  
-    [BurstCompile]
-    public unsafe static bool AllEqual(float* p, int datacount)
+
+    public static bool AllEqual(float* p, int datacount)
     {
         int i = 0;
         float f = p[0];
