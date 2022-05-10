@@ -7,9 +7,17 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 unsafe public partial struct simd
 {
 
+    /// <summary>
+    /// check if the given pointer array is equally spaced and return the rowsize if so
+    /// - if rowsize is extremely large we assume not equally spaced (at 2GB for performance reasons)   
+    /// </summary>
+    /// <param name="data">input pointer to an array of other pointers</param>
+    /// <param name="datacount">the number of pointers in the array</param>
+    /// <param name="rowsize">if equally spaced, the rowsize in bytes</param>
+    /// <returns>if the pointers point to equally spaced data</returns>
     public static bool AllEquallySpaced(void** data, int datacount, out int rowsize)
     {
-        // for performance reasons: only check the first as a long substraction
+        // only check the first as a long substraction
         rowsize = (int)(((ulong*)data)[1] - ((ulong*)data)[0]);
 
         // only say indices are aligned when below some max value of spacing
@@ -37,6 +45,9 @@ unsafe public partial struct simd
 
                     // permute vector 1 index to left
                     v256 v2 = mm256_permutevar8x32_epi32(v1, perm);
+
+                    // cant use >> shifts in 2 seperate 128 lanes
+                    // v256 v2 = mm256_slli_si256(v1, 32); 
 
                     i += 16;
                     p += 16;
