@@ -1,6 +1,8 @@
 # Unity Burst Intrinsics 
 
-Ive updated some functions i often use using intersics in Unity with burst and thought to share it here as it might be handy for reference for others. Ill be adding to this as i go.
+Ive updated some functions i often use using simd instructions in Unity with burst and thought to share it here as it might be handy for reference for others. Ill be adding to this as i go.
+
+The code targets AVX2 capable processors and has fallbacks for old cpu's.
 
 mm256_ utilities: 
 ```CSharp
