@@ -4,33 +4,6 @@ Ive updated some functions i often use using simd instructions in Unity with bur
 
 The code targets AVX2 capable processors and has fallbacks for old cpu's.
 
-mm256_ utilities: 
-```CSharp
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static public Tout ReInterpret<Tin, Tout>(Tin value) where Tin : unmanaged where Tout : unmanaged
-    {
-        unsafe
-        {
-            return ((Tout*)(void*)&value)[0];
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static v256 mm256_stride2_loadeven(int* p)
-    {
-        if (IsAvx2Supported)
-        {
-            v256 x_lo = mm256_load_si256(&p[0]);
-            v256 x_hi = mm256_load_si256(&p[7]);
-            return mm256_permutevar8x32_epi32(mm256_blend_epi32(x_lo, x_hi, 0b10101010), mm256_set_epi32(7, 5, 3, 1, 6, 4, 2, 0));
-        }
-        else
-        {
-            return new v256(p[0], p[2], p[4], p[6], p[8], p[10], p[12], p[14]);
-        }
-    }
-``` 
-
 [Test if all floats in array are equal](AllEqual.cs) 
 
 Check if all floats in the array are equal to eachother using avx2 comparers unrolled to test 64 floats each loop
@@ -103,3 +76,36 @@ Check if all pointers in the array point to memory blobs that all start with the
             }
         }
 ``` 
+
+
+## mm256_ utilities: 
+
+Basic helpers for handling and loading data
+
+```CSharp
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static public Tout ReInterpret<Tin, Tout>(Tin value) where Tin : unmanaged where Tout : unmanaged
+    {
+        unsafe
+        {
+            return ((Tout*)(void*)&value)[0];
+        }
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static v256 mm256_stride2_loadeven(int* p)
+    {
+        if (IsAvx2Supported)
+        {
+            v256 x_lo = mm256_load_si256(&p[0]);
+            v256 x_hi = mm256_load_si256(&p[7]);
+            return mm256_permutevar8x32_epi32(mm256_blend_epi32(x_lo, x_hi, 0b10101010), mm256_set_epi32(7, 5, 3, 1, 6, 4, 2, 0));
+        }
+        else
+        {
+            return new v256(p[0], p[2], p[4], p[6], p[8], p[10], p[12], p[14]);
+        }
+    }
+``` 
+
+
