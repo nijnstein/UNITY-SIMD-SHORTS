@@ -1,6 +1,6 @@
 # Unity Burst Intrinsics 
 
-Ive updated some functions i often use using interincs in unity burst and thought to share it here as it might be handy for reference for others. Ill be adding to this  as i go.
+Ive updated some functions i often use using intersics in Unity with burst and thought to share it here as it might be handy for reference for others. Ill be adding to this as i go.
 
 mm256_ utilities: 
 ```CSharp
