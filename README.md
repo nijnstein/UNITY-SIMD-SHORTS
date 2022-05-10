@@ -1,8 +1,11 @@
-# Unity Burst Intrinsics 
+# Unity Burst Intrinsic Utilities 
 
 Ive updated some functions i often use using simd instructions in Unity with burst and thought to share it here as it might be handy for reference for others. Ill be adding to this as i go.
 
 The code targets AVX2 capable processors and has fallbacks for old cpu's.
+
+
+## Check if all floats in the array are equal 
 
 [Test if all floats in array are equal](AllEqual.cs) 
 
@@ -41,6 +44,8 @@ Check if all floats in the array are equal to eachother using avx2 comparers unr
             }
         }
 ```
+
+## Check if pointers are equally spaced
 
 [Check if all pointers in the array point to data that is equally spaced](EquallySpaced.cs)
 
