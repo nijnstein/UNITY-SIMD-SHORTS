@@ -31,7 +31,10 @@ mm256_ utilities:
     }
 ``` 
 
-AllEqual.cs -> check if all floats in the array are equal to eachother:
+[Test if all floats in array are equal](AllEqual.cs) 
+
+Check if all floats in the array are equal to eachother using avx2 comparers unrolled to test 64 floats each loop
+
 ```CSharp
         if (IsAvx2Supported)                                
         {
@@ -66,7 +69,9 @@ AllEqual.cs -> check if all floats in the array are equal to eachother:
         }
 ```
 
-AllEquallySpaced.cs -> check if all pointers in the array point to data that is equally spaced 
+[Check if all pointers in the array point to data that is equally spaced](EquallySpaced.cs)
+
+Check if all pointers in the array point to memory blobs that all start with the same distance from eachother and ifso returns the stride in bytes.
 ```CSharp
         if (IsAvx2Supported)
         {
